@@ -13,36 +13,51 @@ export default class NewBill {
     this.fileUrl = null
     this.fileName = null
     this.billId = null
+    this.isWrongFile = false;
     new Logout({ document, localStorage, onNavigate })
   }
   handleChangeFile = e => {
     e.preventDefault()
+    let errorFile = this.document.querySelector('#file-error-message');
+    errorFile.innerHTML = "";
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
+
+    // On autorise seulement ces extensions
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+    // On affiche l'extension du fichier
+    const fileExtension = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
+
+    if (!allowedExtensions.includes(fileExtension)) {
+      // alert("Seuls les fichiers jpg, jpeg et png sont autorisés.");
+      errorFile.innerHTML = "Fichier non compatible, seuls les fichiers jpg, jpeg et png sont autorisés."
+      this.isWrongFile = true;
+      return;
+    }
+
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
     formData.append('email', email)
 
-    this.store
-      .bills()
-      .create({
-        data: formData,
-        headers: {
-          noContentType: true
-        }
-      })
-      .then(({fileUrl, key}) => {
-        console.log(fileUrl)
-        this.billId = key
-        this.fileUrl = fileUrl
-        this.fileName = fileName
-      }).catch(error => console.error(error))
+      this.store
+        .bills()
+        .create({
+          data: formData,
+          headers: {
+            noContentType: true
+          }
+        })
+        .then(({fileUrl, key}) => {
+          console.log(fileUrl)
+          this.billId = key
+          this.fileUrl = fileUrl
+          this.fileName = fileName
+        }).catch(error => console.error(error))
   }
   handleSubmit = e => {
     e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,
@@ -57,8 +72,15 @@ export default class NewBill {
       fileName: this.fileName,
       status: 'pending'
     }
-    this.updateBill(bill)
-    this.onNavigate(ROUTES_PATH['Bills'])
+
+    // Si l'extension du fichier joint est différente de null, alors on update la facture
+    if(!this.isWrongFile) {
+      this.updateBill(bill)
+      this.onNavigate(ROUTES_PATH['Bills'])
+      // Sinon, on affiche un popup d'erreur et on redirige le user vers ses notes de frais
+    } else {
+      alert("Seuls les fichiers jpg, jpeg et png sont autorisés.");
+    }
   }
 
   // not need to cover this function by tests
