@@ -72,9 +72,18 @@ export default class {
     this.document = document
     this.onNavigate = onNavigate
     this.store = store
-    $('#arrow-icon1').click((e) => this.handleShowTickets(e, bills, 1))
-    $('#arrow-icon2').click((e) => this.handleShowTickets(e, bills, 2))
-    $('#arrow-icon3').click((e) => this.handleShowTickets(e, bills, 3))
+    $('#arrow-icon1').click((e) => {
+      this.handleShowTickets(e, bills, 1)
+      console.log('cliqué 1');
+    })
+    $('#arrow-icon2').click((e) => {
+      this.handleShowTickets(e, bills, 2)
+      console.log('cliqué 2');
+    })
+    $('#arrow-icon3').click((e) => {
+      this.handleShowTickets(e, bills, 3)
+      console.log('cliqué 3');
+    })
     new Logout({ localStorage, onNavigate })
   }
 
@@ -86,6 +95,7 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
+    console.log(this.counter, bill.id);
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
     if (this.counter % 2 === 0) {
@@ -138,15 +148,18 @@ export default class {
       $(`#status-bills-container${this.index}`)
         .html(cards(filteredBills(bills, getStatus(this.index))))
       this.counter ++
+      console.log('counter après avoir ouvert le statut : ', this.counter);
     } else {
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
       $(`#status-bills-container${this.index}`)
         .html("")
       this.counter ++
+      console.log('counter après avoir ouvert le statut : ', this.counter);
     }
 
     bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+      $(`#open-bill${bill.id}`).off('click');
+      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills));
     })
 
     return bills
