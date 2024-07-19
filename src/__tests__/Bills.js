@@ -11,8 +11,7 @@ import Bills from "../containers/Bills.js";
 
 import router from "../app/Router.js";
 import userEvent from "@testing-library/user-event";
-import mockStore from "../__mocks__/store";
-import NewBill from "../containers/NewBill.js";
+import MockedBills from "../__mocks__/store";
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
@@ -74,49 +73,38 @@ describe("Given I am connected as an employee", () => {
       expect(dates).toEqual(datesSorted);
     });
 
-    test("Then I should able to open the new-bill page", () => {
+    test("Then I should able to see on the eye icons", () => {
 
       router.currentPath = ROUTES_PATH.Bills;
 
       userEvent.click(getByTestId(document.body, "btn-new-bill"));
 
       router.currentPath = ROUTES_PATH.NewBill;
-      const store = null;
-      const newBill = new NewBill({
-        document,
-        onNavigate,
-        store,
-        bills,
-        localStorage: window.localStorage,
-      });
 
-      const handleClickNewBill = jest.fn(newBill.onNavigate);
-
-      expect(handleClickNewBill).toBeDefined();
       expect(router.currentPath).toBe(ROUTES_PATH.NewBill);
     });
 
-    test('Then a modal appears', async () => {
+    test('Then i would should able to open a bill with the icon eye', async () => {
 
       router.currentPath = ROUTES_PATH.Bills;
 
-      const billsInitialization = new Bills({
+      const newBill = new Bills({
         document, 
         localStorage: window.localStorage,
         onNavigate,
-        store: null
-      })
+        store: MockedBills
+      });
 
-      const handleClickIconEye = jest.fn(e => billsInitialization.handleClickIconEye(e))
-      
-      const eyeIcons = screen.getAllByTestId('icon-eye')
-
+      const eyeIcons = screen.getAllByTestId('icon-eye');
       $.fn.modal = jest.fn();
+      const handleClickIconEye = jest.fn(e => newBill.handleClickIconEye(e));
+
+      newBill.getBills();
 
       eyeIcons.forEach((icon) => {
-      icon.addEventListener('click', handleClickIconEye(icon))
-      userEvent.click(icon)
-      expect(handleClickIconEye).toHaveBeenCalled()
+        icon.addEventListener('click', handleClickIconEye(icon));
+        userEvent.click(icon);
+        expect(handleClickIconEye).toHaveBeenCalled();
       })
     })
   });
