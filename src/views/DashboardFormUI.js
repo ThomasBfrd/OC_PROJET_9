@@ -70,7 +70,7 @@ export default (bill) => {
             <div class='input-field input-flex file-flex'>
             <span id="file-name-admin">${bill.fileName !== "null" ? bill.fileName : "Justificatif indisponible"}</span>
             <div class='icons-container'>
-              <span id="-dicon-eye" data-testid="icon-eye-d" data-bill-url="${bill.fileUrl}"> ${bill.fileName !== "null" ? eyeWhite : ""} </span>
+              <span id="icon-eye-d" data-testid="icon-eye-d" data-bill-url="${bill.fileUrl}"> ${bill.fileName !== "null" ? eyeWhite : ""} </span>
             </div>
           </div>
         </div>
