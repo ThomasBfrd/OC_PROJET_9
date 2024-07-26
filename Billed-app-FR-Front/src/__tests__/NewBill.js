@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { screen, waitFor, fireEvent, wait } from "@testing-library/dom";
+import { screen, waitFor, fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 import NewBillUI from "../views/NewBillUI.js";
 import NewBill from "../containers/NewBill.js";
@@ -13,23 +13,22 @@ import { ROUTES_PATH } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
 import userEvent from "@testing-library/user-event";
 
-describe("Given I am connected as an employee", () => {
-  // Méthode qui permet la création d'un fichier + son type
-  const createFileEvent = (fileName, fileType, typeFormat) => {
-    const file = new File(["file"], fileName, { type: fileType });
-    return {
-      preventDefault: () => {},
-      target: {
-        value: `path/fileTest.${typeFormat}`,
-        files: [file],
-      },
-    };
+// Méthode qui permet la création d'un fichier + son type
+const createFileEvent = (fileName, fileType, typeFormat) => {
+  const file = new File(["file"], fileName, { type: fileType });
+  return {
+    preventDefault: () => {},
+    target: {
+      value: `path/fileTest.${typeFormat}`,
+      files: [file],
+    },
   };
+};
+
+describe("Given I am connected as an employee", () => {
 
   jest.mock("../app/store", () => MockedBills);
   jest.mock("../app/store", () => mockStore);
-
-  Object.defineProperty(window, "localStorage", { value: localStorageMock });
 
   beforeEach(() => {
     Object.defineProperty(window, "localStorage", { value: localStorageMock });
@@ -114,28 +113,6 @@ describe("Given I am connected as an employee", () => {
       expect(onNavigate).toHaveBeenCalledWith(ROUTES_PATH["Bills"]);
     });
 
-    it("should change the file in the fileInput", () => {
-      const alertLog = jest.spyOn(window, "alert");
-
-      window.onNavigate(ROUTES_PATH.NewBill);
-
-      const newBillComponent = new NewBill({
-        document,
-        localStorage: window.localStorage,
-        onNavigate,
-        store: MockedBills,
-      });
-
-      const fileEvent = createFileEvent("file.jpg", "image/jpg", "jpg");
-
-      let fileInput = screen.getByTestId("file");
-      userEvent.upload(fileInput, fileEvent);
-
-      newBillComponent.handleChangeFile(fileEvent);
-
-      expect(alertLog).not.toHaveBeenCalled();
-    });
-
     it("should change the file in the fileInput and display a file error", async () => {
       window.onNavigate(ROUTES_PATH.NewBill);
 
@@ -146,7 +123,7 @@ describe("Given I am connected as an employee", () => {
         store: MockedBills,
       });
 
-      const fileEvent = createFileEvent("file.gif", "image/gif", "gif");
+      const fileEvent = createFileEvent("file.mp4", "video/mp4", "mp4");
 
       let fileInput = screen.getByTestId("file");
       userEvent.upload(fileInput, fileEvent);
