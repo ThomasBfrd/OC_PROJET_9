@@ -1,13 +1,12 @@
 {
   "scripts": {
-    "test": "jest --coverage --noStackTrace --silent --watch --verbose"
+    "test": "jest --coverage --noStackTrace --silent"
   },
   "jest": {
     "verbose": false,
     "setupFiles": [
       "./setup-jest.js"
     ],
-    "setupFilesAfterEnv": ["@testing-library/jest-dom"],
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!**/app/**",
