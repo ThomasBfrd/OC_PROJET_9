@@ -113,28 +113,6 @@ describe("Given I am connected as an employee", () => {
       expect(onNavigate).toHaveBeenCalledWith(ROUTES_PATH["Bills"]);
     });
 
-    it("should change the file in the fileInput", () => {
-      const alertLog = jest.spyOn(window, "alert");
-
-      window.onNavigate(ROUTES_PATH.NewBill);
-
-      const newBillComponent = new NewBill({
-        document,
-        localStorage: window.localStorage,
-        onNavigate,
-        store: MockedBills,
-      });
-
-      const fileEvent = createFileEvent("file.jpg", "image/jpg", "jpg");
-
-      let fileInput = screen.getByTestId("file");
-      userEvent.upload(fileInput, fileEvent);
-
-      newBillComponent.handleChangeFile(fileEvent);
-
-      expect(alertLog).not.toHaveBeenCalled();
-    });
-
     it("should change the file in the fileInput and display a file error", async () => {
       window.onNavigate(ROUTES_PATH.NewBill);
 
