@@ -10,7 +10,7 @@ export default () => {
           <div class='content-title'> Envoyer une note de frais </div>
         </div>
         <div class="form-newbill-container content-inner">
-          <form data-testid="form-new-bill">
+          <form data-testid="form-new-bill" id="form-new-bill">
             <div class="row">
                 <div class="col-md-6">
                   <div class="col-half">
@@ -56,14 +56,14 @@ export default () => {
                   <div class="col-half">
                     <label for="file" class="bold-label">Justificatif</label>
                     <input required type="file" class="form-control blue-border" data-testid="file" />
-                    <span id="file-error-message" data-testid="file-error-message">Fichier non compatible, seuls les fichiers jpg, jpeg et png sont autorisés.</span>
+                    <span id="file-error-message" data-testid="file-error-message"></span>
                   </div>
                 </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="col-half">
-                  <button type="submit" id='btn-send-bill' class="btn btn-primary">Envoyer</button>
+                  <button type="submit" id='btn-send-bill' data-testid="btn-send-bill" class="btn btn-primary">Envoyer</button>
                 </div>
               </div>
             </div>

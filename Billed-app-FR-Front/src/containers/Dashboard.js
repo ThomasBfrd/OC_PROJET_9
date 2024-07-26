@@ -72,17 +72,23 @@ export default class {
     this.document = document
     this.onNavigate = onNavigate
     this.store = store
+
+    $('#arrow-icon1').off('click');
     $('#arrow-icon1').click((e) => {
       this.handleShowTickets(e, bills, 1)
-      console.log('cliqué 1');
-    })
+      // console.log('cliqué 1');
+    });
+
+    $('#arrow-icon2').off('click');
     $('#arrow-icon2').click((e) => {
       this.handleShowTickets(e, bills, 2)
-      console.log('cliqué 2');
+      // console.log('cliqué 2');
     })
+    
+    $('#arrow-icon3').off('click');
     $('#arrow-icon3').click((e) => {
       this.handleShowTickets(e, bills, 3)
-      console.log('cliqué 3');
+      // console.log('cliqué 3');
     })
     new Logout({ localStorage, onNavigate })
   }
