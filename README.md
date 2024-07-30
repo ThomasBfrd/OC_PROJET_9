@@ -1,94 +1,27 @@
+# Projet 9 - Billed
 
-## L'architecture du projet :
-Ce projet, dit frontend, est connecté à un service API backend que vous devez aussi lancer en local.
+9ème projet de la formation OpenClassrooms : Développeur d'applications Javascript/React. </br> </br>
+Objectifs : 
+- Ecrire des tests d'intégration avec JavaScript
+- Débugger une application web avec le Chrome Debugger
+- Ecrire des tests unitaires avec JavaScript
+- Rédiger un plan de test end-to-end manuel
 
-Le projet backend se trouve ici: https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back
+## Installation
 
-## Organiser son espace de travail :
-Pour une bonne organization, vous pouvez créer un dossier bill-app dans lequel vous allez cloner le projet backend et par la suite, le projet frontend:
+Pour récupérer le projet, clonez directement ce repository puis dans chaque dossier (Front/Back), faire un ``` npm install ```. <br />
 
-Clonez le projet backend dans le dossier bill-app :
-```
-$ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Back.git
-```
+## Billed - Back
 
-```
-bill-app/
-   - Billed-app-FR-Back
-```
+Pour run le backend du projet, faire la commande suivante : ```npm run run:dev```
 
-Clonez le projet frontend dans le dossier bill-app :
-```
-$ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Front.git
-```
+## Billed - Front
 
-```
-bill-app/
-   - Billed-app-FR-Back
-   - Billed-app-FR-Front
-```
+- Pour run le frontend du projet, faire la commande suivante : ```live-server```
+- Pour lancer les TU, faire la commande suivante : ```npm run test```
 
-## Comment lancer l'application en local ?
+## Demo
+![login](https://github.com/user-attachments/assets/b8d0f786-98fa-4dfa-b87e-040e043c9d9e)
+![employe](https://github.com/user-attachments/assets/241ae4cd-c77c-4216-8f83-74d6fff173f7)
+![admin](https://github.com/user-attachments/assets/015fb100-d065-4862-b72e-77246138b22c)
 
-### étape 1 - Lancer le backend :
-
-Suivez les indications dans le README du projet backend.
-
-### étape 2 - Lancer le frontend :
-
-Allez au repo cloné :
-```
-$ cd Billed-app-FR-Front
-```
-
-Installez les packages npm (décrits dans `package.json`) :
-```
-$ npm install
-```
-
-Installez live-server pour lancer un serveur local :
-```
-$ npm install -g live-server
-```
-
-Lancez l'application :
-```
-$ live-server
-```
-
-Puis allez à l'adresse : `http://127.0.0.1:8080/`
-
-
-## Comment lancer tous les tests en local avec Jest ?
-
-```
-$ npm run test
-```
-
-## Comment lancer un seul test ?
-
-Installez jest-cli :
-
-```
-$npm i -g jest-cli
-$jest src/__tests__/your_test_file.js
-```
-
-## Comment voir la couverture de test ?
-
-`http://127.0.0.1:8080/coverage/lcov-report/`
-
-## Comptes et utilisateurs :
-
-Vous pouvez vous connecter en utilisant les comptes:
-
-### administrateur : 
-```
-utilisateur : admin@test.tld 
-mot de passe : admin
-```
-### employé :
-```
-utilisateur : employee@test.tld
-mot de passe : employee
-```
