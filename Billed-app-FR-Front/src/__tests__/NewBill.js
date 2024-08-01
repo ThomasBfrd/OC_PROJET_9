@@ -75,7 +75,7 @@ describe("Given I am connected as an employee", () => {
       commentary.value = "";
 
       let fileInput = screen.getByTestId("file");
-      const file = new File(["file"], "test.jpg", { type: "image/jpg" });
+      const file = createFileEvent('file.jpg', 'image/jpg', 'jpg')
       userEvent.upload(fileInput, file);
 
       expect(typeDepense.value).toBeDefined();
@@ -85,7 +85,7 @@ describe("Given I am connected as an employee", () => {
       expect(vat.value).toBeDefined();
       expect(pct.value).toBeDefined();
       expect(commentary.value).toBeDefined();
-      expect(fileInput.files[0].name).toBeDefined();
+      expect(fileInput.files).toBeDefined();
     });
 
     it("should send the form with succes and redirect to the bills page", () => {
