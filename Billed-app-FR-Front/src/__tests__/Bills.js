@@ -11,13 +11,11 @@ import Bills from "../containers/Bills.js";
 
 import router from "../app/Router.js";
 import userEvent from "@testing-library/user-event";
-import MockedBills from "../__mocks__/store";
 import mockStore from "../__mocks__/store";
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
     jest.mock("../app/store", () => mockStore);
-    jest.mock("../app/store", () => MockedBills);
 
     beforeEach(() => {
       Object.defineProperty(window, "localStorage", {
