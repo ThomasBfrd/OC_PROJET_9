@@ -8,7 +8,6 @@ import NewBillUI from "../views/NewBillUI.js";
 import NewBill from "../containers/NewBill.js";
 import router from "../app/Router";
 import mockStore from "../__mocks__/store.js"
-import MockedBills from "../__mocks__/store.js";
 import { ROUTES_PATH } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
 import userEvent from "@testing-library/user-event";
@@ -26,8 +25,7 @@ const createFileEvent = (fileName, fileType, typeFormat) => {
 };
 
 describe("Given I am connected as an employee", () => {
-
-  jest.mock("../app/store", () => MockedBills);
+  
   jest.mock("../app/store", () => mockStore);
 
   beforeEach(() => {
@@ -98,7 +96,7 @@ describe("Given I am connected as an employee", () => {
         document,
         localStorage: window.localStorage,
         onNavigate,
-        store: MockedBills,
+        store: mockStore,
       });
 
       window.onNavigate(ROUTES_PATH.NewBill);
@@ -120,7 +118,7 @@ describe("Given I am connected as an employee", () => {
         document,
         localStorage: window.localStorage,
         onNavigate,
-        store: MockedBills,
+        store: mockStore,
       });
 
       const fileEvent = createFileEvent("file.mp4", "video/mp4", "mp4");
@@ -144,7 +142,7 @@ describe("Given I am connected as an employee", () => {
         document,
         localStorage: window.localStorage,
         onNavigate,
-        store: MockedBills,
+        store: mockStore,
       });
 
       const fileEvent = createFileEvent("file.jpg", "image/jpg", "jpg");
